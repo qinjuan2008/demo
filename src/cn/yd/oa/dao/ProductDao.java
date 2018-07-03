@@ -1,7 +1,9 @@
 package cn.yd.oa.dao;
 
-import java.util.ArrayList;
 
+import java.util.List;
+
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import cn.yd.oa.model.Product;
@@ -35,70 +37,20 @@ public class ProductDao {
 		jdbcTemplate.update(sql,new Object[] {id});
 	}
 	
+	/*Spring提供的工具类BeanPropertyRowMapper，Bean和某一行有映射关系，这种映射关系通过指定Product.class完成。
+	 * Product.class:E:\tomcat9\webapps\demo\WEB-INF\classes\cn\yd\oa\model\Product.class
+	 * <Product>代表该对象待会儿返回Product类型。	 * 
+	 */
 	public Product getById(Integer id) {
-//		JdbcUtils jdbcUtils = new JdbcUtils();
-//		Connection conn = jdbcUtils.getConnection();
-//		String sql="select * from product where id=?";
-//		PreparedStatement pStatement;
-//		Product product=null;
-//		try {
-//			pStatement = conn.prepareStatement(sql);
-//			pStatement.setInt(1, id);
-//			ResultSet resultSet=pStatement.executeQuery();
-//			if(resultSet.next()) {
-//				product=new Product();
-//				product.setId(resultSet.getInt("id"));
-//				product.setName(resultSet.getString("name"));
-//				product.setPrice(resultSet.getDouble("price"));
-//				product.setRemark(resultSet.getString("remark"));
-//				product.setDate(resultSet.getDate("date"));
-//			}
-//			return product;
-//		} catch (SQLException e) {
-//			throw new RuntimeException(e);
-//		}	finally {
-//			try {
-//				conn.close();
-//			} catch (SQLException e) {
-//				throw new RuntimeException(e);
-//			}
-//		}	
-		return null;
+		String sql="select * from product where id=?";
+		return (Product) jdbcTemplate.queryForObject(sql, new Object[] {id},
+				new BeanPropertyRowMapper<Product>(Product.class));
 	}
 	
-	public ArrayList<Product> queryByName(String name){
-		
-//		
-//		JdbcUtils jdbcUtils = new JdbcUtils();
-//		Connection conn = jdbcUtils.getConnection();
-//		String sql="select * from product where name like ? ";
-//		PreparedStatement pStatement;
-//		ArrayList<Product> arrayList=new ArrayList<Product>();
-//		try {
-//			pStatement = conn.prepareStatement(sql);
-//			pStatement.setString(1, "%"+name+"%");
-//			System.out.println(pStatement.toString());
-//			ResultSet resultSet=pStatement.executeQuery();
-//			while(resultSet.next()) {
-//				Product product=new Product();
-//				product.setId(resultSet.getInt("id"));
-//				product.setName(resultSet.getString("name"));
-//				product.setPrice(resultSet.getDouble("price"));
-//				product.setRemark(resultSet.getString("remark"));
-//				product.setDate(resultSet.getDate("date"));
-//				arrayList.add(product);
-//			}
-//			return arrayList;
-//		} catch (SQLException e) {
-//			throw new RuntimeException(e);
-//		}	finally {
-//			try {
-//				conn.close();
-//			} catch (SQLException e) {
-//				throw new RuntimeException(e);
-//			}
-//		}	
-		return null;
+	public List<Product> queryByName(String name){
+		String sql="select * from product where name like ? ";
+		return jdbcTemplate.query(sql, new Object[] {"%"+name+"%"}, 
+				new BeanPropertyRowMapper<Product>(Product.class));
 	}
 
 }
