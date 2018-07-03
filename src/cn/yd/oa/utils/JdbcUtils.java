@@ -15,7 +15,8 @@ public class JdbcUtils {
 	// 此方法调用则会返回一个Connection对象
 	public Connection getConnection() {
 		try {
-		 Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/mysql", "root", "root");
+		 Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:16608/db", "root", "");
+		 
 		 return conn;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

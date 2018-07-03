@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+ <!-- spring中两个功能： IOC 依赖注入, AOP：面向切面 -->
+    <!-- IOC: 之前代码中的依赖配置到XML中,在运行时加载到JVM.以后修改XML即可 -->
+    <!-- 
+          1：默认情况下Spring管理的bean是单例 +饿汉 默认情况解决了对象创建数量(单例)、时间(饿汉)、类型(XML可以灵活配置)
+          2: lazy-init="true" 可以指定当前bean是懒汉模式
+          3: scope="prototype" 是多例模式
+     -->
+    <!-- 
+		<bean id="p" class="cn.yd.oa.model.Product" lazy-init="true" scope="prototype" />
+     -->
+   <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+   <!-- 只需要指定配置数据库的4个基本参数 -->
+   <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+   <property name="jdbcUrl" value="jdbc:mysql://localhost:16608/db"></property>
+   <property name="user" value="root"></property>
+   <property name="password" value=""></property>
+   </bean>
+</beans>
