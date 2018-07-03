@@ -3,18 +3,25 @@ package cn.yd.oa.dao;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import cn.yd.oa.model.Product;
 
+@Component(value="pd") //都是组件
+//@Repository(value="pd")//<bean id="pd" class="cn.yd.oa.dao.ProductDao">
 public class ProductDao {
 	//依赖比继承相对灵活一些,应该通过set方法赋值
+	@Resource(name="jt")  //resource代表依赖，不用set方法了。 <bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">
 	private JdbcTemplate jdbcTemplate=null;
 	
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	}
+//	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+//		this.jdbcTemplate = jdbcTemplate;
+//	}
 	//
 	public void save(Product product) {
 		String sql="insert into product (name,price,remark) values (?,?,?)";
