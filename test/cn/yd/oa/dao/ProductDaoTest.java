@@ -9,18 +9,21 @@ import javax.sound.midi.Soundbank;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.yd.oa.model.Product;
 
 public class ProductDaoTest {
 
 	private static ProductDao productDao;
-	
+	private static ApplicationContext context;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		System.out.println("此方法在测试方法之前运行，通常用来初始化测试对象");
-		productDao=new ProductDao(); 
-		
+		//productDao=new ProductDao();
+		ApplicationContext context=new ClassPathXmlApplicationContext("spring-bean.xml");
+		productDao=context.getBean("productDao",ProductDao.class);
 	}
 
 	@AfterClass
@@ -33,9 +36,9 @@ public class ProductDaoTest {
 	public void testSave() {
 		System.out.println("testSave...");
 		Product product=new Product();
-		product.setName("华为手机");
+		product.setName("xiaomi");
 		product.setPrice(3600.00);
-		product.setRemark("huawei新款手机。。。");
+		product.setRemark("huawei new...");
 		productDao.save(product);
 	}
 
