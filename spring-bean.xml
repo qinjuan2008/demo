@@ -15,11 +15,14 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     <!-- 
 		<bean id="p" class="cn.yd.oa.model.Product" lazy-init="true" scope="prototype" />
      -->
-   <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+   <bean id="ds" class="com.mchange.v2.c3p0.ComboPooledDataSource">
    <!-- 只需要指定配置数据库的4个基本参数 -->
    <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
    <property name="jdbcUrl" value="jdbc:mysql://localhost:16608/db"></property>
    <property name="user" value="root"></property>
    <property name="password" value=""></property>
+   </bean>
+   <bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">
+   <property name="dataSource" ref="ds"></property>
    </bean>
 </beans>
