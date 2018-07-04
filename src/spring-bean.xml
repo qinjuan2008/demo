@@ -66,8 +66,7 @@ http://www.springframework.org/schema/context/spring-context-4.0.xsd
 	<!-- 项目开发中XML配置冗余(开发慢,维护方便)，注解：开发快，维护不方便，注解是不可能完全取代XML 
 	注意如果要使用注解，则需要在spring配置文件中声明注解扫描(包括当前包的子包)
 	-->
-	<context:component-scan base-package="cn.yd.oa">
-	
+	<context:component-scan base-package="cn.yd.oa">	
 	</context:component-scan>
 	<!-- 
 	<bean id="pd" class="cn.yd.oa.dao.ProductDao">

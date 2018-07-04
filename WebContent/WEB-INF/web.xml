@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>demo</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-  <servlet>
-    <servlet-name>ProductServlet</servlet-name>
-    <servlet-class>cn.yd.oa.servlet.ProductServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ProductServlet</servlet-name>
-    <url-pattern>/ProductServlet</url-pattern>
-  </servlet-mapping>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>demo</display-name>
+	<welcome-file-list>
+		<!-- 定义缺省的欢迎页面 -->
+		<welcome-file>query.jsp</welcome-file>
+	</welcome-file-list>
+	<!-- 配置MVC的前端控制器 -->
+	<servlet>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 默认目录web-inf/servlet-servlet.xml,spring mvc是前端的一个框架,显示层的东西一般放web-inf下面。
+		              但是由于现在我们用的都是很多框架，一般配置放在src下面 -->
+		<init-param>
+		<!-- DispatcherServlet源码父类FrameworkServlet里面的contextConfigLocation -->
+		<param-name>contextConfigLocation</param-name>
+		<!-- 在tomcat/webapp/demo/class目录，所以用classpath -->
+		<param-value>classpath:mvc-bean.xml,classpath:spring-bean.xml</param-value>
+		</init-param>
+		<!-- 项目启动时加载，1数值越小优先级越高  -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<!-- *.mvc是springmvc需要处理的请求 -->
+		<url-pattern>*.mvc</url-pattern>
+	</servlet-mapping>
+
+
 </web-app>

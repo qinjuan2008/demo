@@ -14,7 +14,7 @@
 %>
 <!-- 发送的是一个HTTP请求，ProductService是不能够识别的，需要一个中间 -->
 <!-- 在项目中所有的请求都要从工程名开始 -->
-	<form action="${pageContext.request.contextPath}/ProductServlet" method="post">
+	<form action="${pageContext.request.contextPath}/product/save.mvc" method="post">
 		商品名:<input type="text" name="name" value="iphone"/><br /> 
 		价格:<input type="text" name="price" value="2001.00" /><br /> 
 		备注:<input type="text" name="remark" value="new iphone" /><br />
