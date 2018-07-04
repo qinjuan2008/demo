@@ -34,4 +34,8 @@ public class ProductService {
 	public void delete(Integer id) {
 		productDao.delete(id);
 	}
+	
+	public void update(Product product) {
+		productDao.update(product);
+	}
 }

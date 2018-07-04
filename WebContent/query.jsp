@@ -6,10 +6,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/ProductServlet" method="get">
+	<form action="${pageContext.request.contextPath}/product/query.mvc" method="get">
 		搜索关键字:<input type="text" name="keyword" value="iphone"/><br /> 
 		<input type="submit" value="给我搜" />
-		<input type="hidden" name="type" value="query"/>
 	</form>
 	<table border=1>
 	<tr>
@@ -19,14 +18,14 @@
 	<th>备注</th>
 	<th>日期</th>
 	</tr>
-	<c:forEach items="${arraylist}" var="p">
+	<c:forEach items="${requestScope.arraylist}" var="p">
 	<tr>
 	<td>${p.id}</td>
 	<td>${p.name}</td>
 	<td>${p.price}</td>
 	<td>${p.remark}</td>
 	<td>${p.date}</td>
-	<td>更新|<a href="${pageContext.request.contextPath}/ProductServlet?id=${p.id}&type=delete">删除</td>
+	<td><a href="${pageContext.request.contextPath}/product/getById.mvc?id=${p.id}">更新|<a href="${pageContext.request.contextPath}/product/delete.mvc?id=${p.id}">删除</td>
 	</tr>
 	</c:forEach>
 	</table>

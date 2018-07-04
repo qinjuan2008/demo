@@ -11,5 +11,5 @@ http://www.springframework.org/schema/context/spring-context-4.0.xsd
 <!-- 只有开启注解扫描，在当前包配置的注解才会被识别 -->
 	<context:component-scan base-package="cn.yd.oa.controller">	
 	</context:component-scan>
-
+<!-- 不用注解的话，在类里加set方法 -->
 </beans>

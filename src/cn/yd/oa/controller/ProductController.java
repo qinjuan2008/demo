@@ -1,7 +1,12 @@
 package cn.yd.oa.controller;
 
-import javax.annotation.Resource;
+import java.util.ArrayList;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.taglibs.standard.tag.el.sql.UpdateTag;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,6 +17,12 @@ import cn.yd.oa.service.ProductService;
 @Component(value="pc")
 @RequestMapping("/product")//访问当前Controller的地址  /工程名/product
 public class ProductController {
+	///MVC Controller支持 request session application自动注入到Controller中
+	@Resource
+	private HttpServletRequest request;
+	
+	@Resource
+	private HttpSession session;
 	//如果采用注解的方式,则不需要些SET方法
 	@Resource(name="ps")
 	private ProductService productService;
@@ -27,8 +38,33 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/delete")
-	public void delete(Integer id) {
-		
+	public String delete(Integer id) {
+		productService.delete(id);
+		String keyword=(String) session.getAttribute("keyword");
+		request.setAttribute("arraylist", productService.queryByName(keyword));
+		return "forward:/query.jsp";
+	}
+	
+	@RequestMapping("/update")
+	public String update(Product product) {
+		productService.update(product);
+		return "redirect:/query.jsp";
+	}
+	
+	@RequestMapping("/query")
+	public String queryByname(String keyword) {
+		ArrayList<Product> arrayList=productService.queryByName(keyword);
+		request.setAttribute("arraylist", arrayList);
+		session.setAttribute("keyword", keyword);
+		return "forward:/query.jsp";
+	}
+	
+	@RequestMapping("/getById")
+	public String getById(Integer id) {
+		Product product=productService.getById(id);
+		request.setAttribute("product", product);
+		///
+		return "forward:/update.jsp";
 	}
 
 }
